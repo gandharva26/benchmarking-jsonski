@@ -23,13 +23,6 @@ console.timeEnd()
 
 
 
-// console.log("Jsonski vs Js 620kb")
-// console.time()
-// console.log(JSki.JSONSkiParser("$.search_metadata.completed_in", "twitter.json"));
-// console.timeEnd()
-
-
-
 const file_contents_small = fs.readFileSync('datasets/small.json');
 const strSmall =  file_contents_small.toString()
 const bench3 = benchmark.createSuite("JsonSKi vs Javascript for JSON oject (size: 472bytes)");
@@ -184,59 +177,3 @@ runBench();
 
 
 
-
-// convert JSON object to a string
-
-
-// write JSON string to a file
-
-// var file_contents3 = fs.readFileSync('pokemon.json')
-// var str3 = file_contents3.toString()
-
-// const bench5 = benchmark.createSuite("JsonSKi vs Javascript for JSON oject (size: 177Kb)");
-// // Add first func
-// bench5.add("JsonSki", () => {
-//      JSki.JSONSkiParser("$.tiger", "pokemon.json");
-// });
-
-
-// //Add second func. This result will be the reference
-// bench5.ref("Javascript", () => {
-//    JSON.parse(str3)['tiger']; 
-    
-// });
-
-// bench5.run().then(res => console.log(res));
-
-
-// const bench6 = benchmark.createSuite("JsonSKi vs SimDJson for JSON oject (size: 177Kb)");
-// // Add first func
-// bench6.add("JsonSki", () => {
-//      JSki.JSONSkiParser("$.tiger", "pokemon.json");
-// });
-
-
-// //Add second func. This result will be the reference
-// bench6.ref("simDjson", () => {
-//     simdjson.lazyParse(str3).valueForKeyPath("tiger");
-//    });
-
-// bench6.run().then(res => console.log(res))
-
-// var file_contents2 = fs.readFileSync('test2.json')
-// var str2 = file_contents2.toString()
-
-// const bench4 = benchmark.createSuite("JsonSKi vs Javascript for JSON oject (size: 472bytes)");
-// // Add first func
-// bench4.add("JsonSki", () => {
-//      JSki.JSONSkiParser("$.sol2.tiger", "test2.json");
-// });
-
-
-// //Add second func. This result will be the reference
-// bench4.ref("Javascript", () => {
-//    JSON.parse(str2)['sol2']['tiger']; 
-    
-// });
-
-// bench4.run().then(res => console.log(res));
