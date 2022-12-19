@@ -20,7 +20,8 @@ Bench.js
 Benchmarking is done using console.time() API for larger datasets.
 Refer - https://developer.mozilla.org/en-US/docs/Web/API/console/time to add your own benchmarks
 ```
- Results:
- <img width="1779" alt="image" src="https://user-images.githubusercontent.com/55717003/208391859-7e266fdd-f9bc-410a-be9a-da9dbbd5dde8.png">
-
+ 
+### Results:
+#### Execution time in milliseconds using console.time() API
+<img width="581" alt="image" src="https://user-images.githubusercontent.com/55717003/208541162-791e6ff4-31bf-4353-9dae-06e57ab76d91.png">
 
