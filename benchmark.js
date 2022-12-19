@@ -3,38 +3,19 @@ const Benchmarkify = require("benchmarkify");
 const JSki = require('jsonski')
 const fs = require('fs');
 const benchmark = new Benchmarkify("Benchmarking JSONSki").printHeader();
-
-
-// Create a test suite for very large json
-console.log("Jsonski vs simdJSON 26 MB")
-console.time()
-console.log(JSki.JSONSkiParser("$[10408].id", "/Users/gandharvadeshpande/testingsimdjson/datasets/test.json"));
-console.timeEnd()
-
-var file_contents_big = fs.readFileSync('/Users/gandharvadeshpande/testingsimdjson/datasets/test.json')
-var str0 = file_contents_big.toString()
-console.time()
-console.log(simdjson.lazyParse(str0).valueForKeyPath("[10408].id"));
-console.timeEnd()
-console.time()
-console.log(JSON.parse(str0)[10408]["id"]);
-console.timeEnd()
-
-
-
-
 const file_contents_small = fs.readFileSync('datasets/small.json');
 const strSmall =  file_contents_small.toString()
+
+// Create a test suite for json using benchmarkify
+
+
+
+
+
+
+
 const bench3 = benchmark.createSuite("JsonSKi vs Javascript for JSON oject (size: 472bytes)");
-console.time()
-console.log(JSki.JSONSkiParser("$.brewing.country.id", "datasets/small.json"));
-console.timeEnd()
-console.time()
-console.log( simdjson.lazyParse(strSmall).valueForKeyPath("brewing.country.id"));
-console.timeEnd()
-console.time()
-console.log( JSON.parse(strSmall)['brewing']['country']['id'] );
-console.timeEnd()
+
 // Add first func
 bench3.add("JsonSki", () => {
      JSki.JSONSkiParser("$.brewing.country.id", "datasets/small.json");
@@ -48,7 +29,24 @@ bench3.ref("Javascript", () => {
    JSON.parse(strSmall)['brewing']['country']['id']; 
     
 });
+const file_contents_24 = fs.readFileSync('datasets/mid-pokemon.json')
+const str_24 = file_contents_24.toString()
+const bench6 = benchmark.createSuite("JsonSKi vs SIMDJson vs Javascript for JSON oject (size: 24Kb)");
 
+// Add first func
+bench6.add("JsonSki", () => {
+   JSki.JSONSkiParser("$.drum", "datasets/mid-pokemon.json");
+});
+
+
+//Add second func. This result will be the reference
+bench6.ref("simDjson", () => {
+ simdjson.lazyParse(str_24).valueForKeyPath("drum");
+});
+
+bench6.ref("Javascript", () => {
+   JSON.parse(str_24).drum
+  });
 
 const results = []
 
@@ -125,24 +123,7 @@ bench5.ref("Javascript", () => {
 
 
 
-  const file_contents_24 = fs.readFileSync('datasets/mid-pokemon.json')
-  const str_24 = file_contents_24.toString()
-  const bench6 = benchmark.createSuite("JsonSKi vs SIMDJson vs Javascript for JSON oject (size: 24Kb)");
-  
-  // Add first func
-  bench6.add("JsonSki", () => {
-     JSki.JSONSkiParser("$.drum", "datasets/mid-pokemon.json");
-  });
-  
-  
-  //Add second func. This result will be the reference
-  bench6.ref("simDjson", () => {
-   simdjson.lazyParse(str_24).valueForKeyPath("drum");
-  });
-  
-  bench6.ref("Javascript", () => {
-     JSON.parse(str_24).drum
-    });
+ 
 
   async function runBench(){
     await bench3.run().then(res =>{
